@@ -1,11 +1,19 @@
 import json
+import os
 
 from flask import Flask
-from flask import request
+from flask import request, send_from_directory
 
 from backedn_call import get_open_ai_response
 
 app = Flask(__name__)
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, 'static'),
+        'favicon.ico', mimetype='image/favicon.png'
+    )
 
 @app.route('/', methods=['GET'])
 def home():
